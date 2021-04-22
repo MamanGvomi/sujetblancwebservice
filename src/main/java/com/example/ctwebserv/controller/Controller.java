@@ -18,7 +18,9 @@ import java.util.*;
 @RestController
 @RequestMapping("/api")
 public class Controller {
-    static HashMap<String, Association> associationHashMap = new HashMap<>();
+    static HashMap<String, Association> associationHashMap = new HashMap<>(
+            Map.of("admin",new Association("admin", "admin", "adminLand"))
+    );
     static HashMap<String, ArrayList<String>> linkAssocCagnotte = new HashMap<>();
     static HashMap<String, Cagnotte> cagnotteHashMap = new HashMap<>();
     static HashMap<String, ArrayList<Donation>> linkCagnotteDonation = new HashMap<>();

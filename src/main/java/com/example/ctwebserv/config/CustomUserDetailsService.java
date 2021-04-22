@@ -22,10 +22,11 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (responsable == null){
             throw new UsernameNotFoundException("Il n'existe pas d'association nommé : " + s + ". Donc aucun responsable.");
         }
+        String[] roles = responsable.getNomResponsable().equals("admin") ? ROLES_MODERATEUR : ROLES_RESPONSABLE;
         return User.builder()
                 .username(responsable.getNomResponsable())
                 .password(passwordEncoder.encode(responsable.getNomAssociation()))
-                .roles(ROLES_RESPONSABLE)
+                .roles(roles)
                 .build();
     }
 }
