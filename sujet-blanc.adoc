@@ -1,0 +1,59 @@
+= Examen de WebServices
+
+Session 1 - 2019-2020
+
+Vous devez cloner ce repository git au début de l'épreuve,
+et rendre le résultat de votre travail sur ce même repository
+avant la fin de l'épreuve (git commit + git push).
+
+== Le sujet
+
+Vous devez mettre en place un back-end en REST
+pour enregistrer les dons faits par des personnes à des cagnottes
+ouvertes par des associations de soutien aux étudiants
+
+Votre API devra permettre au _minimum_ de :
+
+- d'enregistrer une association (nom de l'association, nom du responsable, ville)
+- pour un responsable authentifié (en login son nom et en password le nom de l'association),
+créer une cagnotte pour son association enregistrée
+(nom de la cagnotte, montant demandé, date de fin) si cette demande est valide
+(une seule cagnotte active en même temps par association),
+la cagnotte est identifiée par un UUID unique (`UUID.randomUUID()`)
+- pour un particulier, sans authentification, d'enregistrer son virement sur une cagnotte
+(nom, prénom, date/heure du virement et montant du don) ;
+- pour un responsable authentifié d'une association uniquement,
+récupération de la liste des dons effectués sur les cagnottes de son association
+(la cagnotte en cours et les cagnottes terminées).
+
+Pour éviter les abus, il y a de plus des comptes de modérateurs qui existent
+et qui peuvent supprimer une cagnotte si elle ne respecte pas la loi.
+
+
+== Question 1
+
+Complétez la table ci-dessous avec l'ensemble des URIs de votre webservice
+en précisant les paramètres entrants et sortant, le contexte d'utilisation...
+
+.URIs de votre service
+[cols="1,1a,4a"]
+|===
+|URI |Méthode |Description 
+
+|/hello/{name}|GET
+|Renvoie le message "Hello {name} !" avec {name} passé en URI, en text/plain, code 200 OK
+
+|/hello|POST
+|Input: JSON avec attribut name, Output: chaine "Hello {name} !", code 200 OK
+|===
+
+
+== Question 2
+
+Codez votre API en utilisant Spring Boot
+
+
+== Question 3
+
+Ecrire un script client (`src/main/resources/demo.http`) pour faire la démonstration du fonctionnement de votre API
+
