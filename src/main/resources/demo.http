@@ -1,0 +1,31 @@
+POST http://localhost:8080/api/associations
+Content-Type: application/json
+
+{
+  "nomAssociation": "Pommade",
+  "nomResponsable": "Jerome",
+  "ville": "Orléans"
+}
+
+###
+
+POST http://localhost:8080/api/cagnottes
+Authorization: Basic Jerome Pommade
+Content-Type: application/json
+
+{
+  "nomCagnotte": "Cagnotte pour ARGENT",
+  "montantDemandee": 1000,
+  "dateFin": "2021-05-30",
+  "isActive": true
+}
+###
+POST http://localhost:8080/api/cagnottes/0cf7672f-6926-4f65-b3cb-10b8f894e735
+Content-Type: application/json
+
+{
+  "nom": "Quetier",
+  "prenom": "Thomas",
+  "heure": "2021-04-23T19:38:25",
+  "montant": 100
+}
