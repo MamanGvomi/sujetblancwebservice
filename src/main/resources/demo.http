@@ -20,7 +20,7 @@ Content-Type: application/json
   "isActive": true
 }
 ###
-POST http://localhost:8080/api/cagnottes/0cf7672f-6926-4f65-b3cb-10b8f894e735
+POST http://localhost:8080/api/cagnottes/b0391ffe-5b47-4b32-9cad-f840444f99ee
 Content-Type: application/json
 
 {
@@ -29,3 +29,7 @@ Content-Type: application/json
   "heure": "2021-04-23T19:38:25",
   "montant": 100
 }
+###
+GET http://localhost:8080/api/cagnottes
+Authorization: Basic Jerome Pommade
+Content-Type: application/json

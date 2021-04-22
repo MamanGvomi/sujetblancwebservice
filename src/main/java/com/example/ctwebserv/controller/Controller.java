@@ -13,10 +13,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.lang.annotation.Repeatable;
 import java.net.URI;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api")
@@ -24,6 +21,7 @@ public class Controller {
     static HashMap<String, Association> associationHashMap = new HashMap<>();
     static HashMap<String, ArrayList<String>> linkAssocCagnotte = new HashMap<>();
     static HashMap<String, Cagnotte> cagnotteHashMap = new HashMap<>();
+    static HashMap<String, ArrayList<Donation>> linkCagnotteDonation = new HashMap<>();
 
     public static Association getAssociationByName(String associationNom){
         return associationHashMap.get(associationNom);
@@ -72,7 +70,23 @@ public class Controller {
         }
         Cagnotte c = cagnotteHashMap.get(id);
         c.setMontantDemandee(c.getMontantDemandee() - donation.getMontant());
+        linkCagnotteDonation.get(id).add(donation);
         return ResponseEntity.ok(c);
+
+    }
+
+    @GetMapping(value = "/cagnottes", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Donation>> getDonation(Principal principal){
+        Association assoc = Controller.getAssociationByResponsableName(principal.getName());
+        if (assoc == null){
+            return ResponseEntity.notFound().build();
+        }
+        ArrayList<String> cagnottesID = Controller.linkAssocCagnotte.get(assoc.getNomAssociation());
+        ArrayList<Donation> res = new ArrayList<>();
+        for(String idCagnotte : cagnottesID){
+            res.addAll(Controller.linkCagnotteDonation.get(idCagnotte));
+        }
+        return ResponseEntity.ok(res);
 
     }
 
@@ -91,6 +105,7 @@ public class Controller {
         UUID id = UUID.randomUUID();
         cagnotteHashMap.put(id.toString(), cagnotte);
         linkAssocCagnotte.get(assoc.getNomAssociation()).add(id.toString());
+        linkCagnotteDonation.put(id.toString(), new ArrayList<>());
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{id}")
                 .buildAndExpand(id.toString()).toUri();
