@@ -111,6 +111,17 @@ public class Controller {
                 .buildAndExpand(id.toString()).toUri();
 
         return ResponseEntity.created(location).body(cagnotte);
+    }
 
+    @DeleteMapping(value = "/cagnottes/{id}")
+    public ResponseEntity deleteCagnotte(Principal principal, @PathVariable String id){
+        if (id == null){
+            return ResponseEntity.badRequest().build();
+        }
+        if (!cagnotteHashMap.containsKey(id)){
+            return ResponseEntity.notFound().build();
+        }
+        cagnotteHashMap.remove(id);
+        return ResponseEntity.noContent().build();
     }
 }

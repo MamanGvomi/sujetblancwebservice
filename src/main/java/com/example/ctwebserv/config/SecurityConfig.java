@@ -32,9 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/cagnottes").hasRole("USER")
                 .antMatchers(HttpMethod.POST, "/api/cagnottes/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/cagnottes").hasRole("USER")
-
-
-//                .antMatchers(HttpMethod.POST, "/api/utilisateurs").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/cagnottes/*").hasRole("ADMIN")
                 .anyRequest().permitAll()
                 .and().httpBasic()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
